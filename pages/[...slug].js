@@ -48,3 +48,8 @@ export async function getServerSideProps(context) {
   const dossier = Array.isArray(slug) ? slug.join('/') : slug;
   return { props: { dossier } };
 }
+export async function getServerSideProps(context) {
+  const { slug } = context.params;
+  const dossier = Array.isArray(slug) ? slug.join('/') : slug;
+  return { props: { dossier } };
+}
