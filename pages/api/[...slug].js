@@ -1,13 +1,13 @@
 export default function handler(req, res) {
   const { slug } = req.query;
 
-  if (!slug || slug.length < 3) {
-    return res.status(400).send("Lien invalide.");
-  }
+  // Reconstitue le numéro de dossier à partir du chemin
+  const dossier = Array.isArray(slug) ? slug.join('/') : slug;
 
-  const numeroDossier = slug[2];
-  const redirectUrl = `https://script.google.com/macros/s/AKfycbxYn22Mnet1TDJgPhhnGAs6q84oN9iGWn8X5KT3b06492tKof2JzVFh5m4m63rP8/exec?dossier=${numeroDossier}`;
+  // Construit l’URL de redirection vers Apps Script
+  const redirectUrl = `https://script.google.com/macros/s/AKfycbyHZKCOr5vVhw7EfkPK3yT_sH64Z30439_DS9HItYPu3YY9myDSKCqXM773-QRToMHc/exec?dossier=${encodeURIComponent(dossier)}`;
 
+  // Redirection 302
   res.writeHead(302, { Location: redirectUrl });
   res.end();
 }
